@@ -144,6 +144,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
+  mayjuun_design_system:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "18783f1f21b7f781ef4bc351651be818ec60a621"
+      url: "https://github.com/MayJuun/design_system.git"
+    source: git
+    version: "1.0.0+1"
   meta:
     dependency: transitive
     description:

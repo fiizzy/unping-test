@@ -1,5 +1,6 @@
 import "package:get/get.dart";
 
 class StepperController extends GetxController {
-  Rx<int> index = 0.obs;
+  Rx<int> currentIndex = 0.obs;
+  Rx<String> nextButton = 'Next'.obs;
 }
