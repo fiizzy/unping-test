@@ -47,4 +47,32 @@ class PersistFormData {
   //Set the user formData
   set persistedRoleData(String? formData) =>
       formDataStorage.write("role", formData);
+
+  //get the formData
+  String? get persistedStreetData => formDataStorage.read("streetName");
+
+  //Set the user formData
+  set persistedStreetData(String? formData) =>
+      formDataStorage.write("streetName", formData);
+
+  //get the formData
+  String? get persistedHouseNumberData => formDataStorage.read("houseNumber");
+
+  //Set the user formData
+  set persistedHouseNumberData(String? formData) =>
+      formDataStorage.write("houseNumber", formData);
+
+  //get the formData
+  String? get persistedZipCodeData => formDataStorage.read("zipCode");
+
+  //Set the user formData
+  set persistedZipCodeData(String? formData) =>
+      formDataStorage.write("zipCode", formData);
+
+  //get the formData
+  String? get persistedCityData => formDataStorage.read("city");
+
+  //Set the user formData
+  set persistedCityData(String? formData) =>
+      formDataStorage.write("city", formData);
 }

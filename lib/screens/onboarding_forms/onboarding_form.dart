@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mayjuun_design_system/mayjuun_design_system.dart';
+import 'package:unping_test/controllers/payment_information.dart';
 import 'package:unping_test/controllers/stepper_controller.dart';
+import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/payment_listeners.dart';
 import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/team_information.dart';
+import 'package:unping_test/screens/onboarding_forms/widgets/payment_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
@@ -24,13 +27,17 @@ class OnboardingForm extends StatelessWidget {
     //Initialize controllers
     PersonalInformationController personalInformationController = Get.find();
     TeamInformationController teamInformationController = Get.find();
+    PaymentInformationController paymentInformationController = Get.find();
+
     final personalInformationFormKey = personalInformationController.formKey;
     final teamInformationFormKey = teamInformationController.formKey;
+    final paymentInformationFormKey = paymentInformationController.formKey;
     persistFormData.formIndex = persistFormData.formIndex ?? 0;
     stepperController.currentIndex.value = persistFormData.formIndex!;
     debugPrint("${persistFormData.formIndex}");
     personalInformationListener();
     teamInformationInformationListener();
+    paymentInformationListener();
 
     return Scaffold(
         appBar: AppBar(title: const Text("Get Started")),
@@ -110,7 +117,7 @@ class OnboardingForm extends StatelessWidget {
                           persistFormData.formIndex =
                               stepperController.currentIndex.value;
                         } else if (stepperController.currentIndex.value == 2 &&
-                            personalInformationFormKey.currentState!
+                            paymentInformationFormKey.currentState!
                                 .validate()) {
                           // persistFormData.formIndex =
                           //     stepperController.currentIndex.value;
@@ -135,14 +142,9 @@ class OnboardingForm extends StatelessWidget {
                             index: 1,
                             content: teamInformation()),
                         stepWidget(
-                            title: "Personal Information",
+                            title: "Payment Invoice Information",
                             index: 2,
-                            content: Card(
-                              child: Container(
-                                  height: 300,
-                                  width: 300,
-                                  color: Colors.orange),
-                            )),
+                            content: paymentInformation()),
                       ],
                     ),
                   )),
