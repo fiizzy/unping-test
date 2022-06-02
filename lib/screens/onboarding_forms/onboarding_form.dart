@@ -20,6 +20,10 @@ class OnboardingForm extends StatelessWidget {
     //Initialize controllers
     PersonalInformationController personalInformationController = Get.find();
     final personalInformationFormKey = personalInformationController.formKey;
+    persistFormData.formIndex = persistFormData.formIndex ?? 0;
+    stepperController.currentIndex.value = persistFormData.formIndex!;
+    debugPrint("${persistFormData.formIndex}");
+
     //Initialize listener to the form field changes
     personalInformationController.firstNameTextController.addListener(() {
       //set formData persistence here
@@ -27,9 +31,8 @@ class OnboardingForm extends StatelessWidget {
           personalInformationController.firstNameTextController.text;
 
       debugPrint(
-          "This is the persisted data:" + persistFormData.persistedFormData);
+          "This is the persisted data:" + persistFormData.persistedFormData!);
     });
-    stepperController.currentIndex.value = 0;
 
     return Scaffold(
         appBar: AppBar(title: const Text("Get Started")),
@@ -88,9 +91,12 @@ class OnboardingForm extends StatelessWidget {
                       // margin: EdgeInsets.all(100),
                       type: StepperType.horizontal,
                       currentStep: stepperController.currentIndex.value,
+                      // currentStep: persistFormData.formIndex,
                       onStepCancel: () {
                         if (stepperController.currentIndex.value > 0) {
                           stepperController.currentIndex.value -= 1;
+                          persistFormData.formIndex =
+                              persistFormData.formIndex! - 1;
                         }
                       },
                       onStepContinue: () {
@@ -98,19 +104,28 @@ class OnboardingForm extends StatelessWidget {
                             personalInformationFormKey.currentState!
                                 .validate()) {
                           stepperController.currentIndex.value = 1;
+                          persistFormData.formIndex =
+                              stepperController.currentIndex.value;
                         } else if (stepperController.currentIndex.value == 1 &&
                             personalInformationFormKey.currentState!
                                 .validate()) {
                           stepperController.currentIndex.value = 2;
+                          persistFormData.formIndex =
+                              stepperController.currentIndex.value;
                         } else if (stepperController.currentIndex.value == 2 &&
                             personalInformationFormKey.currentState!
                                 .validate()) {
+                          // persistFormData.formIndex =
+                          //     stepperController.currentIndex.value;
+
                           // stepperController.currentIndex.value = 2;
                           //Submit the form
                         }
                       },
                       onStepTapped: (int index) {
                         stepperController.currentIndex.value = index;
+                        persistFormData.formIndex = index;
+                        debugPrint("${persistFormData.formIndex}");
                       },
                       steps: <Step>[
                         stepWidget(

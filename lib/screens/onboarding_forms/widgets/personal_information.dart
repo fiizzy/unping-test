@@ -10,7 +10,7 @@ Widget personalInformationForm() {
   final PersistFormData persistFormData = PersistFormData();
   PersonalInformationController personalInformationController = Get.find();
   personalInformationController.firstNameTextController.text =
-      persistFormData.persistedFormData;
+      persistFormData.persistedFormData ?? '';
 
   DropDown dropDown = DropDown(
     isCleared: true,
