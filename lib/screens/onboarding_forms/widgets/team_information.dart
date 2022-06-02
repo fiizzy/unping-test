@@ -47,12 +47,21 @@ Widget teamInformation() {
       children: [
         stepForm('Team Name', 'Kubernetes',
             controller: teamInformationController.teamNameTextController,
-            validator: (value) {
-          if (value!.isEmpty || !value.contains('')) {
-            return 'Enter a valid name';
-          } else {
-            return null;
+            maxLength: 10, validator: (value) {
+          String? message;
+          if (!RegExp(".*[0-9].*").hasMatch(value ?? '')) {
+            message ??= '';
+            message += 'Input should contain a numeric value 1-9. ';
           }
+          if (!RegExp('.*[a-z].*').hasMatch(value ?? '')) {
+            message ??= '';
+            message += 'Input should contain a lowercase letter a-z. ';
+          }
+          if (!RegExp('.*[A-Z].*').hasMatch(value ?? '')) {
+            message ??= '';
+            message += 'Input should contain an uppercase letter A-Z. ';
+          }
+          return message;
         }),
         const SizedBox(
           height: 10,
@@ -61,7 +70,7 @@ Widget teamInformation() {
             controller: teamInformationController.teamSizeTextController,
             keyboardType: TextInputType.number, validator: (value) {
           if (value!.isEmpty || !value.contains('')) {
-            return 'Enter a valid name';
+            return 'Enter a valid number';
           } else {
             return null;
           }
@@ -75,7 +84,7 @@ Widget teamInformation() {
             controller: teamInformationController.roleTextController,
             validator: (value) {
           if (value!.isEmpty || !value.contains('')) {
-            return 'Enter a valid Position';
+            return 'Enter a valid Role';
           } else {
             return null;
           }

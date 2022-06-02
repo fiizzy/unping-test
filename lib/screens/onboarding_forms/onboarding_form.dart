@@ -10,6 +10,7 @@ import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/team_information.dart';
 
 import '../../controllers/personal_information.dart';
+import '../../controllers/team_infomration.dart';
 import '../../utils/form_persistence.dart';
 
 // ignore: must_be_immutable
@@ -22,7 +23,9 @@ class OnboardingForm extends StatelessWidget {
   Widget build(BuildContext context) {
     //Initialize controllers
     PersonalInformationController personalInformationController = Get.find();
+    TeamInformationController teamInformationController = Get.find();
     final personalInformationFormKey = personalInformationController.formKey;
+    final teamInformationFormKey = teamInformationController.formKey;
     persistFormData.formIndex = persistFormData.formIndex ?? 0;
     stepperController.currentIndex.value = persistFormData.formIndex!;
     debugPrint("${persistFormData.formIndex}");
@@ -102,8 +105,7 @@ class OnboardingForm extends StatelessWidget {
                           persistFormData.formIndex =
                               stepperController.currentIndex.value;
                         } else if (stepperController.currentIndex.value == 1 &&
-                            personalInformationFormKey.currentState!
-                                .validate()) {
+                            teamInformationFormKey.currentState!.validate()) {
                           stepperController.currentIndex.value = 2;
                           persistFormData.formIndex =
                               stepperController.currentIndex.value;

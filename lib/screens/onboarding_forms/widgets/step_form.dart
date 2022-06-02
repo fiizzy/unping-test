@@ -6,17 +6,19 @@ Widget stepForm(String label, String hint,
     bool? readOnly,
     TextEditingController? controller,
     String? Function(String?)? validator,
-    TextInputType? keyboardType}) {
+    TextInputType? keyboardType,
+    int? maxLength}) {
   return SizedBox(
     child: SizedBox(
       child: TextFormField(
         // initialValue: 'f',
         keyboardType: keyboardType ?? TextInputType.text,
-        inputFormatters: keyboardType != null
-            ? <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              ]
-            : null,
+        inputFormatters: <TextInputFormatter>[
+          //This line below controls the formatting for Team Name and Team Size -- Not the best approach.
+          keyboardType != null
+              ? FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+              : LengthLimitingTextInputFormatter(maxLength),
+        ],
         controller: controller,
         readOnly: readOnly ?? false,
         validator: validator,
