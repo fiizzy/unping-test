@@ -7,11 +7,13 @@ import 'package:unping_test/screens/onboarding_forms/widgets/step.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 
 import '../../controllers/personal_information.dart';
+import '../../utils/form_persistence.dart';
 
 // ignore: must_be_immutable
 class OnboardingForm extends StatelessWidget {
   OnboardingForm({Key? key}) : super(key: key);
   final StepperController stepperController = Get.find();
+  final PersistFormData persistFormData = PersistFormData();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,12 @@ class OnboardingForm extends StatelessWidget {
     final personalInformationFormKey = personalInformationController.formKey;
     //Initialize listener to the form field changes
     personalInformationController.firstNameTextController.addListener(() {
-      debugPrint(personalInformationController.firstNameTextController.text);
+      //set formData persistence here
+      persistFormData.persistedFormData =
+          personalInformationController.firstNameTextController.text;
+
+      debugPrint(
+          "This is the persisted data:" + persistFormData.persistedFormData);
     });
     stepperController.currentIndex.value = 0;
 

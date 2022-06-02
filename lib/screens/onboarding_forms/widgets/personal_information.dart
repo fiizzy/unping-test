@@ -4,8 +4,13 @@ import 'package:get/get.dart';
 import 'package:unping_test/controllers/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 
+import '../../../utils/form_persistence.dart';
+
 Widget personalInformationForm() {
+  final PersistFormData persistFormData = PersistFormData();
   PersonalInformationController personalInformationController = Get.find();
+  personalInformationController.firstNameTextController.text =
+      persistFormData.persistedFormData;
 
   DropDown dropDown = DropDown(
     isCleared: true,
