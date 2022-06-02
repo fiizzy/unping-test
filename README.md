@@ -2,15 +2,17 @@
 
 A new Flutter project.
 
-## Getting Started
+### Performance Optimization
+
+- Followed the Single responsibility principle allowing one class to be concerned with only one entity
+- Implemented DRY principle that naturally made my code reusable [ reusable widgets]
+
+### What I would do differently
+
+-
+
+### Architecture used:
+
+I used the MVC [ layer first approach ] architecture mostly because of the project size and scope. This avoids a considerable amount of boiler plates, and keeps everything simple.
 
 This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

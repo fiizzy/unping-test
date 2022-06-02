@@ -150,7 +150,11 @@ class OnboardingForm extends StatelessWidget {
                               paymentInformationData
                             ];
 
-                            //send data
+                            //send and await data
+                            //clearFields();
+                            //if(statusCode == 200 || 201) {
+                            // Get.to(successPage);
+                            //}
                             //reset storage
                             debugPrint("${data}");
                           }
