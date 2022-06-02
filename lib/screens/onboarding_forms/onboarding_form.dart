@@ -9,11 +9,10 @@ import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/team_in
 import 'package:unping_test/screens/onboarding_forms/widgets/payment_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step.dart';
-import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/team_information.dart';
-
 import '../../controllers/personal_information.dart';
 import '../../controllers/team_infomration.dart';
+import '../../utils/alert_dialog.dart';
 import '../../utils/form_persistence.dart';
 
 // ignore: must_be_immutable
@@ -87,7 +86,8 @@ class OnboardingForm extends StatelessWidget {
                                   style:
                                       MayJuunType.label3(color: Colors.white),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
+                                  await showMyDialog(context);
                                   print("Cancelled");
                                 })
                           ],
@@ -104,7 +104,7 @@ class OnboardingForm extends StatelessWidget {
                               persistFormData.formIndex! - 1;
                         }
                       },
-                      onStepContinue: () {
+                      onStepContinue: () async {
                         if (stepperController.currentIndex.value == 0 &&
                             personalInformationFormKey.currentState!
                                 .validate()) {
@@ -119,11 +119,41 @@ class OnboardingForm extends StatelessWidget {
                         } else if (stepperController.currentIndex.value == 2 &&
                             paymentInformationFormKey.currentState!
                                 .validate()) {
-                          // persistFormData.formIndex =
-                          //     stepperController.currentIndex.value;
+                          if (!personalInformationFormKey.currentState!
+                              .validate()) {
+                            stepperController.currentIndex.value = 0;
+                            persistFormData.formIndex =
+                                stepperController.currentIndex.value;
+                          } else if (!teamInformationFormKey.currentState!
+                              .validate()) {
+                            stepperController.currentIndex.value = 1;
+                            persistFormData.formIndex =
+                                stepperController.currentIndex.value;
+                          } else if (!paymentInformationFormKey.currentState!
+                              .validate()) {
+                            stepperController.currentIndex.value = 2;
+                            persistFormData.formIndex =
+                                stepperController.currentIndex.value;
+                          } else {
+                            //call my services and change state
+                            Map personalInformationData =
+                                personalInformationController
+                                    .personalInformationHandler();
+                            Map teamInformationData = teamInformationController
+                                .teamInformationHandler();
+                            Map paymentInformationData =
+                                paymentInformationController
+                                    .paymentInformationHandler();
+                            List data = [
+                              personalInformationData,
+                              teamInformationData,
+                              paymentInformationData
+                            ];
 
-                          // stepperController.currentIndex.value = 2;
-                          //Submit the form
+                            //send data
+                            //reset storage
+                            debugPrint("${data}");
+                          }
                         }
                       },
                       onStepTapped: (int index) {
@@ -151,14 +181,5 @@ class OnboardingForm extends StatelessWidget {
             )
           ],
         ));
-  }
-
-  void indexNavigationChecker(int currentIndex) {
-    if (currentIndex >= 0 && currentIndex <= 1) {
-      currentIndex += 1;
-    } else if (currentIndex == 2) {
-      // stepperController.currentIndex.value = 0;
-      null;
-    }
   }
 }

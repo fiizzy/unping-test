@@ -9,7 +9,11 @@ class PersonalInformationController extends GetxController {
   final TextEditingController positionTextController = TextEditingController();
   Rx<String> dropDownText = 'No position selected'.obs;
 
-  static personalInformationHandler() {
-    debugPrint('The personal information was submitted');
+  personalInformationHandler() {
+    return {
+      "firstName": firstNameTextController.text,
+      "secondName": secondNameTextController.text,
+      "Position": positionTextController.text,
+    };
   }
 }

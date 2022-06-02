@@ -10,7 +10,12 @@ class PaymentInformationController extends GetxController {
   final TextEditingController cityTextController = TextEditingController();
   Rx<String> dropDownText = 'No role selected'.obs;
 
-  static paymentInformationHandler() {
-    debugPrint('The personal information was submitted');
+  paymentInformationHandler() {
+    return {
+      "street": streetTextController.text,
+      "houseNumber": houseNumberTextController.text,
+      "zipCode": zipCodeTextController.text,
+      "city": cityTextController.text,
+    };
   }
 }
