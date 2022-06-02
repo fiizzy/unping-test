@@ -5,10 +5,13 @@ import 'package:unping_test/controllers/personal_information.dart';
 import 'package:unping_test/controllers/stepper_controller.dart';
 import 'package:unping_test/screens/onboarding_forms/onboarding_form.dart';
 
+import 'controllers/team_infomration.dart';
+
 void main() async {
   await GetStorage.init();
   Get.put(StepperController());
   Get.put(PersonalInformationController());
+  Get.put(TeamInformationController());
 
   runApp(const MyApp());
 }

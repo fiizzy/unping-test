@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mayjuun_design_system/mayjuun_design_system.dart';
 import 'package:unping_test/controllers/stepper_controller.dart';
+import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/personal_information.dart';
+import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/team_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
+import 'package:unping_test/screens/onboarding_forms/widgets/team_information.dart';
 
 import '../../controllers/personal_information.dart';
 import '../../utils/form_persistence.dart';
@@ -23,22 +26,8 @@ class OnboardingForm extends StatelessWidget {
     persistFormData.formIndex = persistFormData.formIndex ?? 0;
     stepperController.currentIndex.value = persistFormData.formIndex!;
     debugPrint("${persistFormData.formIndex}");
-
-    //Initialize listener to the form field changes
-    personalInformationController.firstNameTextController.addListener(() {
-      //set formData persistence here
-      persistFormData.persistedFirstNameData =
-          personalInformationController.firstNameTextController.text;
-    });
-
-    personalInformationController.secondNameTextController.addListener(() {
-      persistFormData.persistedSecondNameData =
-          personalInformationController.secondNameTextController.text;
-    });
-    personalInformationController.positionTextController.addListener(() {
-      persistFormData.persistedPositionData =
-          personalInformationController.positionTextController.text;
-    });
+    personalInformationListener();
+    teamInformationInformationListener();
 
     return Scaffold(
         appBar: AppBar(title: const Text("Get Started")),
@@ -140,12 +129,9 @@ class OnboardingForm extends StatelessWidget {
                           index: 0,
                         ),
                         stepWidget(
-                            title: "Personal Information",
+                            title: "Team Information",
                             index: 1,
-                            content: Card(
-                              child: Container(
-                                  height: 300, width: 300, color: Colors.pink),
-                            )),
+                            content: teamInformation()),
                         stepWidget(
                             title: "Personal Information",
                             index: 2,
