@@ -27,11 +27,17 @@ class OnboardingForm extends StatelessWidget {
     //Initialize listener to the form field changes
     personalInformationController.firstNameTextController.addListener(() {
       //set formData persistence here
-      persistFormData.persistedFormData =
+      persistFormData.persistedFirstNameData =
           personalInformationController.firstNameTextController.text;
+    });
 
-      debugPrint(
-          "This is the persisted data:" + persistFormData.persistedFormData!);
+    personalInformationController.secondNameTextController.addListener(() {
+      persistFormData.persistedSecondNameData =
+          personalInformationController.secondNameTextController.text;
+    });
+    personalInformationController.positionTextController.addListener(() {
+      persistFormData.persistedPositionData =
+          personalInformationController.positionTextController.text;
     });
 
     return Scaffold(

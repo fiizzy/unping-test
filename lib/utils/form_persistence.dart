@@ -5,11 +5,23 @@ class PersistFormData {
   final formIndexStorage = GetStorage();
 
   //get the formData
-  String? get persistedFormData => formDataStorage.read("formData");
+  String? get persistedFirstNameData => formDataStorage.read("firstName");
 
   //Set the user formData
-  set persistedFormData(String? formData) =>
-      formDataStorage.write("formData", formData);
+  set persistedFirstNameData(String? formData) =>
+      formDataStorage.write("firstName", formData);
+  //get the formData
+  String? get persistedSecondNameData => formDataStorage.read("secondName");
+
+  //Set the user formData
+  set persistedSecondNameData(String? formData) =>
+      formDataStorage.write("secondName", formData);
+  //get the formData
+  String? get persistedPositionData => formDataStorage.read("position");
+
+  //Set the user formData
+  set persistedPositionData(String? formData) =>
+      formDataStorage.write("position", formData);
 
   //get the formIndex
   int? get formIndex => formIndexStorage.read("formIndex");
