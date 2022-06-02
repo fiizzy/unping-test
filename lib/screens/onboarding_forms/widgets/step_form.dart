@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-Widget stepForm(String label, String hint, {Widget? dropdown, bool? readOnly}) {
+Widget stepForm(String label, String hint,
+    {Widget? dropdown,
+    bool? readOnly,
+    TextEditingController? controller,
+    String? Function(String?)? validator}) {
   return SizedBox(
-    child: Form(
-        child: SizedBox(
+    child: SizedBox(
       child: TextFormField(
+        controller: controller,
         readOnly: readOnly ?? false,
-        validator: (value) {
-          if (value!.isEmpty || !value.contains('@')) {
-            return 'Please enter a valid email address';
-          } else {
-            return null;
-          }
-        },
+        validator: validator,
         decoration: InputDecoration(
             labelText: label, hintText: hint, suffixIcon: dropdown),
       ),
-    )),
+    ),
   );
 }

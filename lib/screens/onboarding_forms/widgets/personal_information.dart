@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:get/get.dart';
+import 'package:unping_test/controllers/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 
 Widget personalInformationForm() {
-  var dropDown = DropDown(
-    items: ["Choose", "Banker", "Sailor"],
+  PersonalInformationController personalInformationController = Get.find();
+  DropDown dropDown = DropDown(
+    items: const ["Choose", "Banker", "Sailor"],
     dropDownType: DropDownType.Button,
     showUnderline: false,
     initialValue: "Choose",
@@ -18,27 +21,40 @@ Widget personalInformationForm() {
       // PaymentConfigGlobalizer.baseCurrency = value;
     },
   );
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      stepForm(
-        'First Name',
-        'John',
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      stepForm(
-        'Last Name',
-        'Doe',
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      stepForm('Position', 'Engineer', dropdown: dropDown, readOnly: true),
-      const SizedBox(
-        height: 10,
-      )
-    ],
+  return Form(
+    key: personalInformationController.formKey,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        stepForm('First Name', 'John',
+            controller: personalInformationController.firstNameTextController,
+            validator: (value) {
+          if (value!.isEmpty || !value.contains('')) {
+            return 'Enter a valid name';
+          } else {
+            return null;
+          }
+        }),
+        const SizedBox(
+          height: 10,
+        ),
+        stepForm('Last Name', 'Doe',
+            controller: personalInformationController.secondNameTextController,
+            validator: (value) {
+          if (value!.isEmpty || !value.contains('')) {
+            return 'Enter a valid name';
+          } else {
+            return null;
+          }
+        }),
+        const SizedBox(
+          height: 10,
+        ),
+        stepForm('Position', 'Engineer', dropdown: dropDown, readOnly: false),
+        const SizedBox(
+          height: 10,
+        )
+      ],
+    ),
   );
 }

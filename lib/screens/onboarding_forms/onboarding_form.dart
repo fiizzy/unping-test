@@ -6,6 +6,8 @@ import 'package:unping_test/screens/onboarding_forms/widgets/personal_informatio
 import 'package:unping_test/screens/onboarding_forms/widgets/step.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 
+import '../../controllers/personal_information.dart';
+
 // ignore: must_be_immutable
 class OnboardingForm extends StatelessWidget {
   OnboardingForm({Key? key}) : super(key: key);
@@ -13,6 +15,13 @@ class OnboardingForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Initialize controllers
+    PersonalInformationController personalInformationController = Get.find();
+    final personalInformationFormKey = personalInformationController.formKey;
+    //Initialize listener to the form field changes
+    personalInformationController.firstNameTextController.addListener(() {
+      debugPrint(personalInformationController.firstNameTextController.text);
+    });
     stepperController.currentIndex.value = 0;
 
     return Scaffold(
@@ -78,12 +87,19 @@ class OnboardingForm extends StatelessWidget {
                         }
                       },
                       onStepContinue: () {
-                        if (stepperController.currentIndex.value >= 0 &&
-                            stepperController.currentIndex.value <= 1) {
-                          stepperController.currentIndex.value += 1;
-                        } else if (stepperController.currentIndex.value == 2) {
-                          // stepperController.currentIndex.value = 0;
-                          null;
+                        if (stepperController.currentIndex.value == 0 &&
+                            personalInformationFormKey.currentState!
+                                .validate()) {
+                          stepperController.currentIndex.value = 1;
+                        } else if (stepperController.currentIndex.value == 1 &&
+                            personalInformationFormKey.currentState!
+                                .validate()) {
+                          stepperController.currentIndex.value = 2;
+                        } else if (stepperController.currentIndex.value == 2 &&
+                            personalInformationFormKey.currentState!
+                                .validate()) {
+                          // stepperController.currentIndex.value = 2;
+                          //Submit the form
                         }
                       },
                       onStepTapped: (int index) {
@@ -117,5 +133,14 @@ class OnboardingForm extends StatelessWidget {
             )
           ],
         ));
+  }
+
+  void indexNavigationChecker(int currentIndex) {
+    if (currentIndex >= 0 && currentIndex <= 1) {
+      currentIndex += 1;
+    } else if (currentIndex == 2) {
+      // stepperController.currentIndex.value = 0;
+      null;
+    }
   }
 }
