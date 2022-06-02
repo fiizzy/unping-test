@@ -6,7 +6,9 @@ import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 
 Widget personalInformationForm() {
   PersonalInformationController personalInformationController = Get.find();
+
   DropDown dropDown = DropDown(
+    isCleared: true,
     items: const ["Choose", "Banker", "Sailor"],
     dropDownType: DropDownType.Button,
     showUnderline: false,
@@ -17,8 +19,15 @@ Widget personalInformationForm() {
       // color: AppColors.primaryPurple,
     ),
     onChanged: (dynamic value) {
-      //add value to the payment config baseCurrency
-      // PaymentConfigGlobalizer.baseCurrency = value;
+      if (value == "Choose") {
+        personalInformationController.positionTextController.clear();
+      } else {
+        //set the state text to drop down value
+        personalInformationController.dropDownText.value = value;
+        // set Text-controller = state text
+        personalInformationController.positionTextController.text =
+            personalInformationController.dropDownText.value;
+      }
     },
   );
   return Form(
@@ -50,7 +59,17 @@ Widget personalInformationForm() {
         const SizedBox(
           height: 10,
         ),
-        stepForm('Position', 'Engineer', dropdown: dropDown, readOnly: false),
+        stepForm('Position', personalInformationController.dropDownText.value,
+            dropdown: dropDown,
+            readOnly: true,
+            controller: personalInformationController.positionTextController,
+            validator: (value) {
+          if (value!.isEmpty || !value.contains('')) {
+            return 'Enter a valid Position';
+          } else {
+            return null;
+          }
+        }),
         const SizedBox(
           height: 10,
         )
