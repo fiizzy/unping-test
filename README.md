@@ -9,7 +9,7 @@ A new Flutter project.
 
 ### What I would do differently
 
--
+- Use more abstract classes to enforce consistency in some reusable widgets
 
 ### Architecture used:
 
