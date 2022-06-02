@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mayjuun_design_system/mayjuun_design_system.dart';
 import 'package:unping_test/controllers/payment_information.dart';
 import 'package:unping_test/controllers/stepper_controller.dart';
+import 'package:unping_test/screens/onboarding_forms/continue_stepper_logic.dart';
 import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/payment_listeners.dart';
 import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/form_listeners.dart/team_information.dart';
@@ -105,60 +106,7 @@ class OnboardingForm extends StatelessWidget {
                         }
                       },
                       onStepContinue: () async {
-                        if (stepperController.currentIndex.value == 0 &&
-                            personalInformationFormKey.currentState!
-                                .validate()) {
-                          stepperController.currentIndex.value = 1;
-                          persistFormData.formIndex =
-                              stepperController.currentIndex.value;
-                        } else if (stepperController.currentIndex.value == 1 &&
-                            teamInformationFormKey.currentState!.validate()) {
-                          stepperController.currentIndex.value = 2;
-                          persistFormData.formIndex =
-                              stepperController.currentIndex.value;
-                        } else if (stepperController.currentIndex.value == 2 &&
-                            paymentInformationFormKey.currentState!
-                                .validate()) {
-                          if (!personalInformationFormKey.currentState!
-                              .validate()) {
-                            stepperController.currentIndex.value = 0;
-                            persistFormData.formIndex =
-                                stepperController.currentIndex.value;
-                          } else if (!teamInformationFormKey.currentState!
-                              .validate()) {
-                            stepperController.currentIndex.value = 1;
-                            persistFormData.formIndex =
-                                stepperController.currentIndex.value;
-                          } else if (!paymentInformationFormKey.currentState!
-                              .validate()) {
-                            stepperController.currentIndex.value = 2;
-                            persistFormData.formIndex =
-                                stepperController.currentIndex.value;
-                          } else {
-                            //call my services and change state
-                            Map personalInformationData =
-                                personalInformationController
-                                    .personalInformationHandler();
-                            Map teamInformationData = teamInformationController
-                                .teamInformationHandler();
-                            Map paymentInformationData =
-                                paymentInformationController
-                                    .paymentInformationHandler();
-                            List data = [
-                              personalInformationData,
-                              teamInformationData,
-                              paymentInformationData
-                            ];
-
-                            //send and await data
-                            //clearFields();
-                            //if(statusCode == 200 || 201) {
-                            // Get.to(successPage);
-                            //}
-                            //reset storage
-                            debugPrint("${data}");
-                          }
-                        }
+                        continueStepperLogic();
                       },
                       onStepTapped: (int index) {
                         stepperController.currentIndex.value = index;
