@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mayjuun_design_system/mayjuun_design_system.dart';
 import 'package:unping_test/controllers/stepper_controller.dart';
+import 'package:unping_test/screens/onboarding_forms/widgets/personal_information.dart';
 import 'package:unping_test/screens/onboarding_forms/widgets/step.dart';
+import 'package:unping_test/screens/onboarding_forms/widgets/step_form.dart';
 
 // ignore: must_be_immutable
 class OnboardingForm extends StatelessWidget {
@@ -90,10 +92,7 @@ class OnboardingForm extends StatelessWidget {
                       steps: <Step>[
                         stepWidget(
                           title: "Personal Information",
-                          content: Card(
-                            child: Container(
-                                height: 300, width: 300, color: Colors.yellow),
-                          ),
+                          content: personalInformationForm(),
                           index: 0,
                         ),
                         stepWidget(
